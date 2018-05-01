@@ -43,11 +43,11 @@ describe('Create Error test', () => {
 describe('Create Error from Access Token Error test', () => {
 	var error;
 	  before(() => {
-		  	error = new UserError(accesstoken_error_mock);
+		  	error = new ILLRequestError(accesstoken_error_mock);
 		  });
 	  
 	  it('Creates an Error object', () => {
-		  expect(error).to.be.an.instanceof(UserError);
+		  expect(error).to.be.an.instanceof(ILLRequestError);
 	  });
 	  
 	  it('Sets the Error properties', () => {
@@ -67,7 +67,7 @@ describe('Create Error from Access Token Error test', () => {
 	});
 
 
-describe('API Error tests', () => {
+describe.only('API Error tests', () => {
   beforeEach(() => {
 	  moxios.install();
   });
@@ -83,7 +83,14 @@ describe('API Error tests', () => {
 	  });
 	
 	// set the fields
-	let fields = {};
+    let fields = {
+        	"needed": "2018-06-30T20:00:00.000-04:00",
+        	"userID": "jkdjfldjfdlj",
+        	"ItemOCLCNumber": "780941515",
+        	"ItemTitle": "Simon's Cat",
+        	"ItemAuthor": "Tofield, Simon",
+        	"ItemMediaType": "BOOK"
+        };
 	  
     return ILLRequest.add(128807, 'tk_12345', fields)
       .catch(error => {
@@ -98,21 +105,21 @@ describe('API Error tests', () => {
   
   it('Returns a 401 Error from an Access Token request', () => {
 	  nock('https://authn.sd00.worldcat.org/oauth2')
-      .post('/accessToken?grant_type=client_credentials&authenticatingInstitutionId=128807&contextInstitutionId=128807&scope=SCIM:read_self')
+      .post('/accessToken?grant_type=code&code=auth_12345&authenticatingInstitutionId=128807&contextInstitutionId=128807&scope=SCIM:read_self')
       .replyWithFile(401, __dirname + '/mocks/access_token_error.json', { 'Content-Type': 'application/json' });	  
 
 	const nodeauth = require("nodeauth");
 	const options = {
-		    services: ["SCIM:read_self"]
+		    services: ["tipasa"]
 		};	
 	const user = new nodeauth.User(config['institution'], config['principalID'], config['principalIDNS']);
 	const wskey = new nodeauth.Wskey(config['wskey'], config['secret'], options);	  
 	  
-	return wskey.getAccessTokenWithClientCredentials(config['institution'], config['institution'], user)
+	return wskey.getAccessTokenWithAuthCode("auth_12345", config['institution'], config['institution'])
       .catch(error => {
         //expect an Error object back
-    	let atError = new UserError(error);
-        expect(atError).to.be.an.instanceof(UserError);
+    	let atError = new ILLRequestError(error);
+        expect(atError).to.be.an.instanceof(ILLRequestError);
         expect(atError.getRequestError()).to.be.an.instanceof(Error);
         expect(atError.getCode()).to.equal(401);
         expect(atError.getMessage()).to.equal("WSKey 'test' is invalid")
