@@ -1,4 +1,4 @@
-module.exports = class UserError {
+module.exports = class ILLRequestError {
     constructor(error) {
     	this.error = error;
         if (this.error.response) {

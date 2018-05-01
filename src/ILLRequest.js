@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const serviceUrl = '.share.worldcat.org/ILL/request/data';
 
-const ILLRequestError = require('../src/IllRequestError');
+const ILLRequestError = require('../src/ILLRequestError');
 
 module.exports = class ILLRequest {
     constructor(doc) {

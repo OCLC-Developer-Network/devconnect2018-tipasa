@@ -67,7 +67,7 @@ describe('Create Error from Access Token Error test', () => {
 	});
 
 
-describe.only('API Error tests', () => {
+describe('API Error tests', () => {
   beforeEach(() => {
 	  moxios.install();
   });
@@ -77,10 +77,10 @@ describe.only('API Error tests', () => {
   });
 
   it('Returns a 401 Error from an HTTP request', () => {
-	  moxios.stubRequest('https://128807.share.worldcat.org/ILL/data', {
-		  status: 401,
-		  responseText: error_response
-	  });
+      moxios.stubOnce('POST', 'https://128807.share.worldcat.org/ILL/request/data', {
+          status: 200,
+          responseText: error_response
+      });  
 	
 	// set the fields
     let fields = {
@@ -105,12 +105,13 @@ describe.only('API Error tests', () => {
   
   it('Returns a 401 Error from an Access Token request', () => {
 	  nock('https://authn.sd00.worldcat.org/oauth2')
-      .post('/accessToken?grant_type=code&code=auth_12345&authenticatingInstitutionId=128807&contextInstitutionId=128807&scope=SCIM:read_self')
+      .post('/accessToken?grant_type=code&code=auth_12345&authenticatingInstitutionId=128807&contextInstitutionId=128807&redirect_uri=http://localhost:8000/request')
       .replyWithFile(401, __dirname + '/mocks/access_token_error.json', { 'Content-Type': 'application/json' });	  
 
 	const nodeauth = require("nodeauth");
 	const options = {
-		    services: ["tipasa"]
+		    services: ["tipasa"],
+		    redirectUri: "http://localhost:8000/request"
 		};	
 	const user = new nodeauth.User(config['institution'], config['principalID'], config['principalIDNS']);
 	const wskey = new nodeauth.Wskey(config['wskey'], config['secret'], options);	  
