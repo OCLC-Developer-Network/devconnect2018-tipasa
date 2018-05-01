@@ -67,7 +67,7 @@ describe('Create Error from Access Token Error test', () => {
 	});
 
 
-describe('API Error tests', () => {
+describe.only('API Error tests', () => {
   beforeEach(() => {
 	  moxios.install();
   });
@@ -78,7 +78,7 @@ describe('API Error tests', () => {
 
   it('Returns a 401 Error from an HTTP request', () => {
       moxios.stubOnce('POST', 'https://128807.share.worldcat.org/ILL/request/data', {
-          status: 200,
+          status: 401,
           responseText: error_response
       });  
 	
