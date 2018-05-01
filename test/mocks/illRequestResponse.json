@@ -1,0 +1,19 @@
+{
+"requestId":166917929,
+"recordVersion":1,
+"created":"2017-04-27T20:00:00.000-04:00",
+"originalRequestId": 0,  
+"requestStatus":"CREATED",
+"needed":"2018-06-30T20:00:00.000-04:00",
+"patron":{
+    "ppid" : "jkdjfldjfdlj"
+},
+"item":{
+    "title":"Simon's Cat",
+    "author":"Tofield, Simon",
+    "mediaType":{
+        "definedValue":"BOOK"
+    },
+    "oclcNumber": 780941515
+}
+}
