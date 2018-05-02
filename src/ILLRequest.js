@@ -64,6 +64,7 @@ module.exports = class ILLRequest {
     			  headers: {
     				  'Authorization': 'Bearer ' + accessToken,
     				  'User-Agent': 'node.js KAC client',
+    				  'Content-Type': 'application/json',
     				  'Accept': 'application/json'
     			  }
     			};
