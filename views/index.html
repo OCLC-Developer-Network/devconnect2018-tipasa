@@ -2,12 +2,12 @@
 <h1>Add New Request</h1>
 <form action="/request" method="POST">
     <input name="userID" type="hidden" value="<%= user_id%>"/>
-    <p><label>OCLC Number:</label> <input type="text" name="ItemOCLCNumber" /></p>
+    <p><label id="oclcnumber">OCLC Number:</label> <input type="text" name="ItemOCLCNumber" /></p>
     </p>
-    <p><label>Title:</label> <input type="text" name="ItemTitle" /></p>
-    <p><label>Author:</label> <input type="text" name="ItemAuthor" /></p>
-    <p><label>Needed By:</label> <input type="text" name="needed" /></p>
-    <p><label>Media Type:</label>
+    <p><label id="title">Title:</label> <input type="text" name="ItemTitle" /></p>
+    <p><label id="author">Author:</label> <input type="text" name="ItemAuthor" /></p>
+    <p><label id="needed_by">Needed By:</label> <input type="text" name="needed" /></p>
+    <p><label id="media_type">Media Type:</label>
     <select name="ItemMediaType">
     <option value="BOOK">Book</option>
     </select>

@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 const cheerio = require('cheerio');
 let helper = require('./testHelper');
 
-describe.only("Error routes", function(){
+describe("Error routes", function(){
 	before(() => {
 		helper.moxios.install()
 	})

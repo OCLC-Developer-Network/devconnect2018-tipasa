@@ -8,11 +8,11 @@ describe("routes", function(){
 		helper.moxios.install()
 		helper.moxios.stubOnce('POST', 'https://128807.share.worldcat.org/ILL/request/data', {
 			status: 200,
-			responseText: helper.user_response
+			responseText: helper.ill_request_response
 		}); 
 		helper.moxios.stubOnce('GET', 'https://128807.share.worldcat.org/ILL/request/data/166917929', {
 			status: 200,
-			responseText: helper.user_response
+			responseText: helper.ill_request_response
 		}); 
 	})
 	
@@ -24,7 +24,16 @@ describe("routes", function(){
 	    it('It should response the GET method', () => {
 	        return request(helper.app).get("/").then(response => {
 	            expect(response.statusCode).to.equal(200);
-	            expect(response.text).to.have.string("<!-- show form for request -->");
+	            let $ = cheerio.load(response.text);
+	            expect($('h1').text()).to.have.string("Add New Request");
+	            expect($('label#oclcnumber').text()).to.have.string("OCLC Number");
+	            expect($('label#title').text()).to.have.string("Title");
+	            expect($('label#author').text()).to.have.string("Author");
+	            expect($('label#needed_by').text()).to.have.string("Needed By");
+	            expect($('label#media_type').text()).to.have.string("Media Type");
+	            // check hidden field
+	            // check select option values
+	            
 	        })
 	    });
   });
