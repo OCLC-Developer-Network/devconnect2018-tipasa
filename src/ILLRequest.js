@@ -93,7 +93,7 @@ module.exports = class ILLRequest {
         			resolve(new ILLRequest(response.data));	    	
           	    })
           		.catch (error => {
-          			reject(new ILLRequestError(error));
+          			reject(console.log(error));
           		});
         });
     }

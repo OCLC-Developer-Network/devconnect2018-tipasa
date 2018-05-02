@@ -70,3 +70,35 @@ describe('Add ILL Request tests', () => {
       });
   });
 });
+
+describe.only('Get ILL Request tests', () => {
+  beforeEach(() => {
+	  moxios.install();
+  });
+  
+  afterEach(() => {
+	  moxios.uninstall();
+  });  
+  
+  it('Get ILL Request by Access Token', () => {
+      moxios.stubOnce('GET', 'https://128807.share.worldcat.org/ILL/request/data/166917929', {
+          status: 200,
+          responseText: ill_request_response
+        });  
+    
+    return ILLRequest.get(128807, 'tk_12345', 166917929)
+      .then(response => {
+        //expect an ILLRequest object back
+    	expect(response).to.be.an.instanceof(ILLRequest);
+
+        expect(response.getID()).to.equal(166917929);
+        expect(response.getStatus()).to.equal('CREATED');
+        expect(response.dateNeededBy()).to.equal('2018-06-30T20:00:00.000-04:00');
+        expect(response.getItemTitle()).to.equal('Simon\'s Cat');
+        expect(response.getItemAuthor()).to.equal('Tofield, Simon');
+        expect(response.getItemOCLCNumber()).to.equal(780941515);
+        expect(response.getUserID()).to.equal('jkdjfldjfdlj');
+
+      });
+  });
+});
