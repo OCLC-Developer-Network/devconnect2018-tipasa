@@ -71,7 +71,7 @@ describe('Add ILL Request tests', () => {
   });
 });
 
-describe.only('Get ILL Request tests', () => {
+describe('Get ILL Request tests', () => {
   beforeEach(() => {
 	  moxios.install();
   });
