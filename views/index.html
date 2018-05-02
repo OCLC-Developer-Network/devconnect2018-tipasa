@@ -1,0 +1,17 @@
+<%- include('header.html') -%>
+<h1>Add New Request</h1>
+<form action="/request" method="POST">
+    <input name="userID" type="hidden" value="<%= user_id%>"/>
+    <p><label>OCLC Number:</label> <input type="text" name="ItemOCLCNumber" /></p>
+    </p>
+    <p><label>Title:</label> <input type="text" name="ItemTitle" /></p>
+    <p><label>Author:</label> <input type="text" name="ItemAuthor" /></p>
+    <p><label>Needed By:</label> <input type="text" name="needed" /></p>
+    <p><label>Media Type:</label>
+    <select name="ItemMediaType">
+    <option value="BOOK">Book</option>
+    </select>
+    </p>
+    <input type="submit" name="add_request" value="Submit"/>
+</form>
+<%- include('footer.html') -%>
