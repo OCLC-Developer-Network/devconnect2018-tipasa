@@ -67,7 +67,7 @@ describe('Create Error from Access Token Error test', () => {
 	});
 
 
-describe.only('API Error tests', () => {
+describe('API Error tests', () => {
   beforeEach(() => {
 	  moxios.install();
   });
