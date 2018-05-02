@@ -55,8 +55,8 @@ app.use(function (req, res, next) {
 	getAccessToken(req, res, next);
 });
 
-app.get('/', (req, res) => {   
-	res.render('index');
+app.get('/', (req, res) => {
+	res.render('index', {user_id: app.get('accessToken').getUser().principalID});
 });
  
 app.post('/request', (req, res) => {  
