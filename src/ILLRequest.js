@@ -6,36 +6,68 @@ const ILLRequestError = require('../src/ILLRequestError');
 
 module.exports = class ILLRequest {
     constructor(doc) {
-    	this.doc = doc;
+    		this.doc = doc.response.illRequest;
     } 
     
     getID(){
-    	return this.doc.requestId;
+    		return this.doc.requestId;
+    }
+ 
+    getCreated(){
+		return this.doc.created;
+    }
+    
+    getUpdated(){
+		return this.doc.edited;
     }
     
     getStatus(){
-    	return this.doc.requestStatus;
+    		return this.doc.requestStatus;
     }
     
     dateNeededBy(){
-    	return this.doc.needed;
+    		return this.doc.needed;
     }
     
     getItemTitle(){
-    	return this.doc.item.title;
-    }
-    
-    getItemAuthor(){
-    	return this.doc.item.author
+    		return this.doc.item.title;
     }
     
     getItemOCLCNumber(){
-    	return this.doc.item.oclcNumber;
+    		return this.doc.item.oclcNumber;
     }
     
-    getUserID(){
-    	return this.doc.patron.ppid;
+    getPatron(){
+    		return this.doc.patron;
     }
+    
+    getRequesterId(){
+    		return this.doc.requester.institution.institutionId;
+    }
+    
+    getFulfillmentType(){
+    		return this.doc.requester.fulfillmentType;
+    }
+    
+    getServiceType(){
+		return this.doc.requester.serviceType;
+    }
+        
+    getRequesterDelivery(){
+    		return this.doc.requester.requesterDelivery;
+    }
+    
+    getRequesterBilling(){
+    		return this.doc.requester.requesterBilling;
+    }
+    
+    getSupplierIds(){
+    		let supplierIds = [];
+    		this.doc.requester.supplierInfo.institutions.forEach(function(institution){
+    			supplierIds.push(institution.institutionId);
+    		})
+		return supplierIds;
+    }    
     
     static get(institution, accessToken, id) {
     	var config = {
@@ -74,16 +106,21 @@ module.exports = class ILLRequest {
     	// create the necessary XML
     	let data = {
     			"needed": fields['needed'],
-    			"patron":{
-    			    "ppid" : fields['user_id']
-    			},
     			"item":{
-    			    "title": fields['title'],
-    			    "author": ['author'],
-    			    "mediaType":{
-    			        "definedValue": ['mediaType']
-    			    },
-    			    "oclcNumber": ['oclcnumber']
+    			    "title": fields['ItemTitle'],
+    			    "verification": "OCLC",
+    			    "oclcNumber": fields['ItemOCLCNumber']
+    			},
+    			"requester":{
+    				"institution":{
+    					"institutionId": fields['requester']
+    				},
+    	            "supplierInfo": {
+    	                "institutions": fields['suppliers']
+    	            }
+    			},
+    			"patron": {
+    				"userId": fields['userId']
     			}
     			}
     	

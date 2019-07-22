@@ -1,19 +1,49 @@
-{
-"requestId":166917929,
-"recordVersion":1,
-"created":"2017-04-27T20:00:00.000-04:00",
-"originalRequestId": 0,  
-"requestStatus":"CREATED",
-"needed":"2018-06-30T20:00:00.000-04:00",
-"patron":{
-    "ppid" : "jkdjfldjfdlj"
-},
-"item":{
-    "title":"Simon's Cat",
-    "author":"Tofield, Simon",
-    "mediaType":{
-        "definedValue":"BOOK"
-    },
-    "oclcNumber": 780941515
-}
+{"response": 
+    {"illRequest": 
+        {
+            "requestId": 167513532,
+            "created": "2019-07-17T00:00:00.000+0000",
+            "edited": "2019-07-17T21:21:45.943+0000",
+            "requestStatus": "SUBMITTING",
+            "needed": "2019-08-31T00:00:00.000+0000",
+            "requester": {
+                "institution": {"institutionId": 128807},
+                "fulfillmentType": "OCLC_ILL",
+                "serviceType": "COPY",
+                "supplierInfo": {"institutions": [
+                    {"institutionId": 148456},
+                    {"institutionId": 116402}
+                ]},
+                "requesterDelivery": {
+                    "deliveryOptions": [{
+                        "deliveryType": "Library Mail",
+                        "deliveryDetail": "Library Mail"
+                    }],
+                    "address": {"address1": "main street"}
+                },
+                "requesterBilling": {
+                    "billingTypes": [],
+                    "address": {"address1": "main street"}
+                }
+            },
+            "item": {
+                "title": "Simon's Cat",
+                "oclcNumber": 780941515,
+                "edition": {},
+                "verification": "OCLC"
+            },
+            "patron": {
+                "name": "Stacy Smith",
+                "userId": "jkdjfldjfdlj",
+                "department": "Library",
+                "patronType": "ADULT",
+                "phone": "111-222-3456",
+                "email": "someemail.somewhere.org",
+                "pickupLocationInfo": {
+                    "registryId": 128807,
+                    "name": "Main Library"
+                }
+            }
+        }
+    }
 }
