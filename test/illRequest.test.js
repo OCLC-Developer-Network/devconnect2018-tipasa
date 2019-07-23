@@ -102,7 +102,7 @@ describe('Add ILL Request tests', () => {
         expect(response.getRequesterBilling().billingTypes).to.be.an("array");
         expect(response.getRequesterBilling().address.address1).to.equal('main street');    
         expect(response.getSupplierIds()).to.be.an("array");
-        expect(my_request.getSupplierIds()[0]).to.equal(148456);
+        expect(response.getSupplierIds()[0]).to.equal(148456);
 
       });
   });
@@ -118,7 +118,7 @@ describe('Get ILL Request tests', () => {
   });  
   
   it('Get ILL Request by Access Token', () => {
-      moxios.stubOnce('GET', 'https://128807.share.worldcat.org/ILL/request/data/166917929', {
+      moxios.stubOnce('GET', 'https://128807.share.worldcat.org/ILL/request/data/167513532', {
           status: 200,
           responseText: ill_request_response
         });  
@@ -140,8 +140,8 @@ describe('Get ILL Request tests', () => {
         expect(response.getPatron().patronType).to.equal('ADULT');
         expect(response.getPatron().phone).to.equal('111-222-3456');
         expect(response.getPatron().email).to.equal('someemail.somewhere.org');
-        expect(response.getPatron().pickupLocationInfo.registryId).to.equal('128807');
-        expect(response.getPatron().pickupLocationInfo.registryId).to.equal('Main Library');
+        expect(response.getPatron().pickupLocationInfo.registryId).to.equal(128807);
+        expect(response.getPatron().pickupLocationInfo.name).to.equal('Main Library');
         expect(response.getRequesterId()).to.equal(128807);    
         expect(response.getFulfillmentType()).to.equal('OCLC_ILL');    
         expect(response.getServiceType()).to.equal('COPY');        
@@ -151,7 +151,7 @@ describe('Get ILL Request tests', () => {
         expect(response.getRequesterBilling().billingTypes).to.be.an("array");
         expect(response.getRequesterBilling().address.address1).to.equal('main street');    
         expect(response.getSupplierIds()).to.be.an("array");
-        expect(response.getSupplierIds()[0]).to.equal("148456");
+        expect(response.getSupplierIds()[0]).to.equal(148456);
       });
   });
 });

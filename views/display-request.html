@@ -1,12 +1,57 @@
 <%- include('header.html') -%>
 <div id="request">
 <p id="request_id">Request ID: <%= request.getID()%></p>
+<p id="created">Created: <%= request.getCreated()%></p>
+<p id="updated">Updated: <%= request.getUpdated()%></p>
 <p id="status">Status: <%= request.getStatus()%></p>
 <p id="needed_by">Needed By: <%= request.dateNeededBy()%></p>
-<p id="user_id">User ID: <%= request.getUserID()%></p>
+<p id="requester_id">Requesting Institution ID: <%= request.getRequesterId()%></p>
+<p id="fulfillmentType">Fulfillment Type: <%=request.getFulfillmentType()%></p>
+<p id="serviceType">Service Type: <%=request.getServiceType()%></p>
+</div>
+<div id="patron">
+<p id="user_id">User ID: <%= request.getPatron().userId%></p>
+<p id="department">Department: <%= request.getPatron().department%></p>
+<p id="patronType">Patron Type: <%= request.getPatron().patronType%></p>
+<p id="phone">Phone: <%= request.getPatron().phone%></p>
+<p id="email">Email: <%= request.getPatron().email%></p>
+<p id="pickup">Pickup Location:<br/> 
+<span id="name">Name: <%= request.getPatron().pickupLocationInfo.name%><br/></span>
+<span id="registryId">RegistryId: <%= request.getPatron().pickupLocationInfo.registryId%></span>
+</p>
+</div>
 <div id="item">
     <p id="title">Title: <%= request.getItemTitle()%></p>
-    <p id="author">Author: <%= request.getItemAuthor()%></p>
     <p id="oclcnumber">OCLC Number: <%= request.getItemOCLCNumber()%></p>
 </div>
+<div id="suppliers"> 
+    <ul>   
+    <% request.getSupplierIds().forEach(function(supplier){ %>    
+        <li><%=supplier%></li>
+    <% }); %>
+    </ul>  
+</div>
+<div id="requester_delivery">
+    <p>Delivery Options</p>
+    <ul>
+    <%request.getRequesterDelivery().deliveryOptions.forEach(function(options){%>
+        <li>
+        <span id="type"><%=options.deliveryType%></span><br/>
+        <span id="detail"><%=options.deliveryDetail%></span>
+        </li>
+    <% }); %>
+    </ul>
+    <p id="address">Address: <%=request.getRequesterDelivery().address.address1 %></p>
+</div>
+
+<div id="requester_billing">
+    <p>Billing</p>
+    <ul>
+    <%request.getRequesterBilling().billingTypes.forEach(function(billing){%>
+        <li><%=billing%></li>
+    <% }); %>
+    </ul>
+    <p id="address">Address: <%=request.getRequesterBilling().address.address1 %></p>
+</div>
+
 <%- include('footer.html') -%>

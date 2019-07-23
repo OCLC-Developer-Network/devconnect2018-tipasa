@@ -87,9 +87,7 @@ describe('API Error tests', () => {
         	"needed": "2018-06-30T20:00:00.000-04:00",
         	"userID": "jkdjfldjfdlj",
         	"ItemOCLCNumber": "780941515",
-        	"ItemTitle": "Simon's Cat",
-        	"ItemAuthor": "Tofield, Simon",
-        	"ItemMediaType": "BOOK"
+        	"ItemTitle": "Simon's Cat"
         };
 	  
     return ILLRequest.add(128807, 'tk_12345', fields)
@@ -110,7 +108,7 @@ describe('API Error tests', () => {
 
 	const nodeauth = require("nodeauth");
 	const options = {
-		    services: ["tipasa"],
+		    services: ["ILL:request", "SCIM", 'refresh_token'],
 		    redirectUri: "http://localhost:8000/request"
 		};	
 	const user = new nodeauth.User(config['institution'], config['principalID'], config['principalIDNS']);

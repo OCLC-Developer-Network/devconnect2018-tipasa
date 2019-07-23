@@ -8,7 +8,7 @@ const ILLRequest = require("./ILLRequest.js")
 const ILLRequestError = require("./ILLRequestError.js")
 
 const options = {
-	    services: ["tipasa", "refresh_token"],
+	    services: ["ILL:request", "SCIM", "refresh_token"],
 	    redirectUri: "http://localhost:8000/request"
 	};
 
@@ -65,8 +65,7 @@ app.post('/request', (req, res) => {
         	"userID": req.body.userID,
         	"ItemOCLCNumber": req.body.ItemOCLCNumber,
         	"ItemTitle": req.body.ItemTitle,
-        	"ItemAuthor": req.body.ItemAuthor,
-        	"ItemMediaType": req.body.ItemMediaType,
+        	"ItemAuthor": req.body.ItemAuthor
         };
     
 	ILLRequest.add(config['institution'], app.get('accessToken').getAccessTokenString(), fields)
@@ -78,7 +77,7 @@ app.post('/request', (req, res) => {
 		})
 });
 
-app.get('/request/:id', (req, res) => {  
+/*app.get('/request/:id', (req, res) => {  
 	let id = req.params['id'];
     
 	ILLRequest.get(config['institution'], app.get('accessToken').getAccessTokenString(), id)
@@ -88,7 +87,7 @@ app.get('/request/:id', (req, res) => {
 		.catch (error => {
 			res.render('display-error', {error: error.getCode(), error_message: error.getMessage(), error_detail: error.getDetail()});
 		})
-});
+});*/
 
 
 //Server
