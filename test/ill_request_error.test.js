@@ -83,12 +83,20 @@ describe('API Error tests', () => {
       });  
 	
 	// set the fields
-    let fields = {
-        	"needed": "2018-06-30T20:00:00.000-04:00",
-        	"userID": "jkdjfldjfdlj",
-        	"ItemOCLCNumber": "780941515",
-        	"ItemTitle": "Simon's Cat"
-        };
+      let fields = {
+      		"needed": "2019-08-31T00:00:00.000+0000",
+      		"userID": "jkdjfldjfdlj",
+      		"user_name":	 "Stacy Smith",
+      		"user_email": "someemail.somewhere.org",
+  		"department": "Library",
+  		"patron_type": "ADULT",
+  		"pickupRegistryId": "128807",
+  		"pickupName": "Main Library",
+      		"requester": "128807",
+      		"suppliers" : "148456, 116402",
+      		"ItemOCLCNumber": "780941515",
+      		"ItemTitle": "Simon's Cat"
+      };
 	  
     return ILLRequest.add(128807, 'tk_12345', fields)
       .catch(error => {

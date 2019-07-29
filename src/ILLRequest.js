@@ -104,7 +104,26 @@ module.exports = class ILLRequest {
     	let url = 'https://' + institution + serviceUrl;
     	
     	// create the necessary XML
-    	let data = {
+    	let data = this.buildJSON(fields);
+    	
+        return new Promise(function (resolve, reject) {
+            axios.post(url, data, config)
+          		.then(response => {
+          			// parse out the ILL Request
+        			resolve(new ILLRequest(response.data));	    	
+          	    })
+          		.catch (error => {
+          			reject(new ILLRequestError(error));
+          		});
+        });
+    }
+    static buildJSON(fields) {
+    		let supplier_list = fields['suppliers'].split(",");
+    		let suppliers = supplier_list.map(function(supplier){ 
+    			return {"institutionId": Number(supplier)};
+    		});
+
+    		let data = {
     			"needed": fields['needed'],
     			"item":{
     			    "title": fields['ItemTitle'],
@@ -116,7 +135,7 @@ module.exports = class ILLRequest {
     					"institutionId": fields['requester']
     				},
     	            "supplierInfo": {
-    	                "institutions": fields['suppliers']
+    	                "institutions": suppliers
     	            }
     			},
     			"patron": {
@@ -131,16 +150,6 @@ module.exports = class ILLRequest {
                 }
     			}
     			}
-    	
-        return new Promise(function (resolve, reject) {
-            axios.post(url, data, config)
-          		.then(response => {
-          			// parse out the ILL Request
-        			resolve(new ILLRequest(response.data));	    	
-          	    })
-          		.catch (error => {
-          			reject(new ILLRequestError(error));
-          		});
-        });
+    	return data;
     }
 };

@@ -60,8 +60,6 @@ app.get('/', (req, res) => {
 });
  
 app.post('/request', (req, res) => {
-	let supplier_list = req.body.suppliers.split(",");
-	let suppliers = supplier_list.map(supplier => '{"institutionId": supplier}');
     let fields = {
         	"needed": req.body.needed,
         	"userID": req.body.userID,
@@ -72,7 +70,7 @@ app.post('/request', (req, res) => {
         "pickupRegistryId": req.body.patron_type,
         "pickupName": req.body.patron_type,
         "requester": req.body.requester,
-        "suppliers": suppliers,
+        "suppliers": req.body.suppliers,
         	"ItemOCLCNumber": req.body.ItemOCLCNumber,
         	"ItemTitle": req.body.ItemTitle
         };
