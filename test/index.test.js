@@ -26,12 +26,20 @@ describe("routes", function(){
 	            expect(response.statusCode).to.equal(200);
 	            let $ = cheerio.load(response.text);
 	            expect($('h1').text()).to.have.string("Add New Request");
+	            expect($('fieldset#patron_info legend').text()).to.have.string("Patron Info");
+	            expect($('label#userID').text()).to.have.string("ID");
+	            expect($('label#user_name').text()).to.have.string("Name");
+	            expect($('label#user_email').text()).to.have.string("Email");
+	            expect($('label#department').text()).to.have.string("Department");
+	            expect($('label#patron_type').text()).to.have.string("Patron Type");
+	            // hidden fields
+	            expect($('input[name="pickupRegistryId"]').val()).to.have.string("128807");
+	            expect($('input[name="pickupName"]').val()).to.have.string("Main Library");
+	            expect($('input[name="requester"]').val()).to.have.string("128807");
+	            expect($('input[name="suppliers"]').val()).to.have.string("148456,116402");
 	            expect($('label#oclcnumber').text()).to.have.string("OCLC Number");
 	            expect($('label#title').text()).to.have.string("Title");
-	            expect($('label#needed_by').text()).to.have.string("Needed By");
-	            // check hidden field
-	            // check select option values
-	            
+	            expect($('label#needed_by').text()).to.have.string("Needed By");	            
 	        })
 	    });
   });
@@ -39,10 +47,18 @@ describe("routes", function(){
   describe("#requestPost", function(){ 
 	  it('It should response the POST method', async() => {
 	    	let response = await request(helper.app).post("/request").type("form").send({
-		        needed: "2019-08-31T00:00:00.000+0000",
-		        userID: "jkdjfldjfdlj",
+	    			userID: "jkdjfldjfdlj",	    			
+	    			user_name: "Stacy Smith",
+	    			user_email: "someemail.somewhere.org",
+	    			department: "Library",
+	    			patron_type: "ADULT",
+	    			pickupRegistryId: "128807",
+	    			pickupName: "Main Library",
+	    			requester: "128807",
+	    			suppliers: "148456,116402",
 		        ItemOCLCNumber: "780941515",
-		        ItemTitle: "Simon's Cat"
+		        ItemTitle: "Simon's Cat",
+		        needed: "2019-08-31T00:00:00.000+0000"
 	    	});
 	    	let $ = cheerio.load(response.text);
             expect(response.statusCode).to.equal(200);

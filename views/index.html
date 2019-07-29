@@ -1,7 +1,18 @@
 <%- include('header.html') -%>
 <h1>Add New Request</h1>
 <form action="/request" method="POST">
-    <input name="userID" type="hidden" value="<%= user_id%>"/>
+    <fieldset id="patron_info">
+    <legend>Patron Info:</legend>
+    <p><label id="userID">ID:</label> <input type="text" name="userId" /></p>
+    <p><label id="user_name">Name:</label> <input type="text" name="user_name" /></p>
+    <p><label id="user_email">Email:</label> <input type="text" name="user_email" /></p>
+    <p><label id="department">Department:</label> <input type="text" name="department" /></p>
+    <p><label id="patron_type">Patron Type:</label> <input type="text" name="patron_type" /></p>
+    <input type="hidden" name="pickupRegistryId" value="128807"/>
+    <input type="hidden" name="pickupName" value="Main Library"/>
+    <input type="hidden" name="requester" value="128807"/>
+    <input type="hidden" name="suppliers" value="148456,116402"/>
+    </fieldset>
     <p><label id="oclcnumber">OCLC Number:</label> <input type="text" name="ItemOCLCNumber" /></p>
     </p>
     <p><label id="title">Title:</label> <input type="text" name="ItemTitle" /></p>

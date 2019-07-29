@@ -59,13 +59,22 @@ app.get('/', (req, res) => {
 	res.render('index', {user_id: app.get('accessToken').getUser().principalID});
 });
  
-app.post('/request', (req, res) => {  
+app.post('/request', (req, res) => {
+	let supplier_list = req.body.suppliers.split(",");
+	let suppliers = supplier_list.map(supplier => '{"institutionId": supplier}');
     let fields = {
         	"needed": req.body.needed,
         	"userID": req.body.userID,
+        	"user_name": req.body.user_name,
+        	"user_email": req.body.user_email,
+        "department": req.body.department,
+        "patron_type": req.body.patron_type,
+        "pickupRegistryId": req.body.patron_type,
+        "pickupName": req.body.patron_type,
+        "requester": req.body.requester,
+        "suppliers": suppliers,
         	"ItemOCLCNumber": req.body.ItemOCLCNumber,
-        	"ItemTitle": req.body.ItemTitle,
-        	"ItemAuthor": req.body.ItemAuthor
+        	"ItemTitle": req.body.ItemTitle
         };
     
 	ILLRequest.add(config['institution'], app.get('accessToken').getAccessTokenString(), fields)

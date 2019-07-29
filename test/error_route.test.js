@@ -20,12 +20,18 @@ describe("Error routes", function(){
 	  
 	  it('It should response the POST method', async() => {
 	    	let response = await request(helper.app).post("/request").type("form").send({
-		        needed: "2018-06-30T20:00:00.000-04:00",
-		        userID: "jkdjfldjfdlj",
+	    			userID: "jkdjfldjfdlj",	    			
+	    			user_name: "Stacy Smith",
+	    			user_email: "someemail.somewhere.org",
+	    			department: "Library",
+	    			patron_type: "ADULT",
+	    			pickupRegistryId: "128807",
+	    			pickupName: "Main Library",
+	    			requester: "128807",
+	    			suppliers: "148456,116402",
 		        ItemOCLCNumber: "780941515",
 		        ItemTitle: "Simon's Cat",
-		        ItemAuthor: "Tofield, Simon",
-		        ItemMediaType: "BOOK"
+		        needed: "2019-08-31T00:00:00.000+0000"
 	    	});
 	    	let $ = cheerio.load(response.text);
             expect(response.statusCode).to.equal(200);

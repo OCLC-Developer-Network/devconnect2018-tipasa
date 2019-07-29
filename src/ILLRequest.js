@@ -120,7 +120,15 @@ module.exports = class ILLRequest {
     	            }
     			},
     			"patron": {
-    				"userId": fields['userId']
+    				"userId": fields['userId'],
+    				"name": fields['user_name'],
+                "department": fields['department'],
+                "patronType": fields['patron_type'],
+    				"email": fields['user_email'],
+                "pickupLocationInfo": {
+                    "registryId": fields['pickupRegistryId'],
+                    "name": fields['pickupName']
+                }
     			}
     			}
     	
