@@ -58,6 +58,10 @@ describe('ILL Request Build JSON tests', () => {
 		    		"user_email": "someemail.somewhere.org",
 				"department": "Library",
 				"patron_type": "ADULT",
+				"deliveryOptionType": "Library Mail",
+				"deliveryOptionDetail": "Library Mail",
+				"deliveryOptionAddress": "main street",
+				"billingAddress": "main street",
 				"pickupRegistryId": 128807,
 				"pickupName": "Main Library",
 		    		"requester": 128807,
@@ -83,12 +87,12 @@ describe('ILL Request Build JSON tests', () => {
 	      expect(request_json.patron.email).to.equal('someemail.somewhere.org');
 	      expect(request_json.patron.pickupLocationInfo.registryId).to.equal(128807);
 	      expect(request_json.patron.pickupLocationInfo.name).to.equal('Main Library');
-	      expect(request_json.requester.institution.institutionId).to.equal(128807);           
-	      //expect(request_json.requester.requesterDelivery.deliveryOptions[0].deliveryType).to.equal('Library Mail');   
-	      //expect(request_json.requester.requesterDelivery.deliveryOptions[0].deliveryDetail).to.equal('Library Mail');
-	      //expect(request_json.requester.requesterDelivery.address.address1).to.equal('main street');
-	      //expect(request_json.requester.requesterBilling.billingTypes).to.be.an("array");
-	      //expect(request_json.requester.requesterBilling.address.address1).to.equal('main street');    
+	      expect(request_json.requester.institution.institutionId).to.equal(128807); 
+	      expect(request_json.requester.requesterDelivery.deliveryOptions[0].deliveryType).to.equal('Library Mail');   
+	      expect(request_json.requester.requesterDelivery.deliveryOptions[0].deliveryDetail).to.equal('Library Mail');
+	      expect(request_json.requester.requesterDelivery.address.address1).to.equal('main street');
+	      expect(request_json.requester.requesterBilling.billingTypes).to.be.an("array");
+	      expect(request_json.requester.requesterBilling.address.address1).to.equal('main street');    
 	      expect(request_json.requester.supplierInfo.institutions).to.be.an("array");
 	      expect(request_json.requester.supplierInfo.institutions[0].institutionId).to.equal(148456);	  
 	});

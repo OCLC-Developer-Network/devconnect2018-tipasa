@@ -136,7 +136,18 @@ module.exports = class ILLRequest {
     				},
     	            "supplierInfo": {
     	                "institutions": suppliers
-    	            }
+    	            },
+    	            "requesterDelivery": {
+                     "deliveryOptions": [{
+                            "deliveryType": fields['deliveryOptionType'],
+                            "deliveryDetail": fields['deliveryOptionType']
+                        }],
+                     "address": {"address1": fields['deliveryOptionAddress']}
+                    },
+                 "requesterBilling": {
+                    "billingTypes": [],
+                    "address": {"address1": fields['billingAddress']}
+                 }    	            
     			},
     			"patron": {
     				"userId": fields['userId'],
