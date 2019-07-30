@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const serviceUrl = '.share.worldcat.org/ILL/request/data';
+const serviceUrl = 'worldcat.org/ill/request/data';
 
 const ILLRequestError = require('../src/ILLRequestError');
 
@@ -78,7 +78,7 @@ module.exports = class ILLRequest {
     			  }
     			};
     	
-    	let url = 'https://' + institution + serviceUrl + "/" + id;
+    	let url = 'https://' + serviceUrl + "/" + id;
         return new Promise(function (resolve, reject) {
             axios.get(url, config)
           		.then(response => {
@@ -101,7 +101,7 @@ module.exports = class ILLRequest {
     			  }
     			};
     	
-    	let url = 'https://' + institution + serviceUrl;
+    	let url = 'https://' + serviceUrl;
     	
     	// create the necessary XML
     	let data = this.buildJSON(fields);
@@ -133,13 +133,13 @@ module.exports = class ILLRequest {
     		
     		let requester = {
     				"institution":{
-    					"institutionId": fields['requester']
+    					"institutionId": Number(fields['requester'])
     				},
     	            "supplierInfo": {
     	                "institutions": suppliers
     	            }    	                	            
     			}
-    		if (deliveryOptions) {
+    		if (Array.isArray(deliveryOptions) && deliveryOptions.length > 0) {
     			requester["requesterDelivery"] = {
                     "deliveryOptions": deliveryOptions,
                     "address": {"address1": fields['deliveryOptionAddress']}
@@ -160,7 +160,7 @@ module.exports = class ILLRequest {
     		
     		if (fields['pickupRegistryId'] && fields['pickupName']){
     			patron["pickupLocationInfo"] = {
-                    "registryId": fields['pickupRegistryId'],
+                    "registryId": Number(fields['pickupRegistryId']),
                     "name": fields['pickupName']
                 }
     		}
@@ -182,16 +182,19 @@ module.exports = class ILLRequest {
     		}
     		
     		let data = {
-    			"needed": fields['needed'],
-    			"item":{
-    			    "title": fields['ItemTitle'],
-    			    "verification": "OCLC",
-    			    "oclcNumber": fields['ItemOCLCNumber']
-    			},
-    			"requester": requester,
-    			"patron": patron
+    			"illRequest": {
+        			"item":{
+        			    "title": fields['ItemTitle'],
+        			    "verification": "OCLC",
+        			    "oclcNumber": Number(fields['ItemOCLCNumber'])
+        			},
+    				"needed": fields['needed'],
+    				"requestStatus": "SUBMITTING",
+    				"requester": requester,
+    				"patron": patron
     			}
+    		}
     		
-    		return data;
+    		return JSON.stringify(data);
     }
 };

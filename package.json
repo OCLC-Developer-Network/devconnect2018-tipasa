@@ -6,8 +6,7 @@
   "scripts": {
     "start": "nodemon local.js",
     "test": "mocha",
-    "test_server": "nodemon test.js",
-    "cucumber_tests": "cucumber-js test/features"
+    "test_server": "nodemon test.js"
   },
   "keywords": [],
   "author": "",

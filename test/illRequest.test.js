@@ -69,32 +69,37 @@ describe('ILL Request Build JSON tests', () => {
 		    		"ItemOCLCNumber": 780941515,
 		    		"ItemTitle": "Simon's Cat"
 		    };
-		    request_json = ILLRequest.buildJSON(fields);
+		    request_string = ILLRequest.buildJSON(fields);
+		    request_json = JSON.parse(request_string)
 		  });
 	  
-	  it('create a JSON object', () => {
-		  expect(request_json).to.be.an("object");
+	  it('create string of JSON data', () => {
+		  expect(request_string).to.be.a("string");
+	  });
+	  
+	  it('create string of JSON data', () => {
+		  expect(request_json).to.be.a("object");
 	  });
 	  
 	  it('Has correct values', () => {
-	      expect(request_json.needed).to.equal('2019-08-31T00:00:00.000+0000');
-	      expect(request_json.item.title).to.equal('Simon\'s Cat');
-	      expect(request_json.item.oclcNumber).to.equal(780941515);
-	      expect(request_json.patron.userId).to.equal('jkdjfldjfdlj');
-	      expect(request_json.patron.name).to.equal('Stacy Smith');
-	      expect(request_json.patron.department).to.equal('Library');
-	      expect(request_json.patron.patronType).to.equal('ADULT');
-	      expect(request_json.patron.email).to.equal('someemail.somewhere.org');
-	      expect(request_json.patron.pickupLocationInfo.registryId).to.equal(128807);
-	      expect(request_json.patron.pickupLocationInfo.name).to.equal('Main Library');
-	      expect(request_json.requester.institution.institutionId).to.equal(128807); 
-	      expect(request_json.requester.requesterDelivery.deliveryOptions[0].deliveryType).to.equal('Library Mail');   
-	      expect(request_json.requester.requesterDelivery.deliveryOptions[0].deliveryDetail).to.equal('Library Mail');
-	      expect(request_json.requester.requesterDelivery.address.address1).to.equal('main street');
-	      expect(request_json.requester.requesterBilling.billingTypes).to.be.an("array");
-	      expect(request_json.requester.requesterBilling.address.address1).to.equal('main street');    
-	      expect(request_json.requester.supplierInfo.institutions).to.be.an("array");
-	      expect(request_json.requester.supplierInfo.institutions[0].institutionId).to.equal(148456);	  
+	      expect(request_json.illRequest.needed).to.equal('2019-08-31T00:00:00.000+0000');
+	      expect(request_json.illRequest.item.title).to.equal('Simon\'s Cat');
+	      expect(request_json.illRequest.item.oclcNumber).to.equal(780941515);
+	      expect(request_json.illRequest.patron.userId).to.equal('jkdjfldjfdlj');
+	      expect(request_json.illRequest.patron.name).to.equal('Stacy Smith');
+	      expect(request_json.illRequest.patron.department).to.equal('Library');
+	      expect(request_json.illRequest.patron.patronType).to.equal('ADULT');
+	      expect(request_json.illRequest.patron.email).to.equal('someemail.somewhere.org');
+	      expect(request_json.illRequest.patron.pickupLocationInfo.registryId).to.equal(128807);
+	      expect(request_json.illRequest.patron.pickupLocationInfo.name).to.equal('Main Library');
+	      expect(request_json.illRequest.requester.institution.institutionId).to.equal(128807); 
+	      expect(request_json.illRequest.requester.requesterDelivery.deliveryOptions[0].deliveryType).to.equal('Library Mail');   
+	      expect(request_json.illRequest.requester.requesterDelivery.deliveryOptions[0].deliveryDetail).to.equal('Library Mail');
+	      expect(request_json.illRequest.requester.requesterDelivery.address.address1).to.equal('main street');
+	      expect(request_json.illRequest.requester.requesterBilling.billingTypes).to.be.an("array");
+	      expect(request_json.illRequest.requester.requesterBilling.address.address1).to.equal('main street');    
+	      expect(request_json.illRequest.requester.supplierInfo.institutions).to.be.an("array");
+	      expect(request_json.illRequest.requester.supplierInfo.institutions[0].institutionId).to.equal(148456);	  
 	});
 	
 	it('Has handles missing/minimal values', () => {
@@ -105,14 +110,17 @@ describe('ILL Request Build JSON tests', () => {
 	    		"ItemOCLCNumber": 780941515,
 	    		"ItemTitle": "Simon's Cat"
 	    };
-	    let minimal_request_json = ILLRequest.buildJSON(minimal_fields);
+	    let minimal_request_string = ILLRequest.buildJSON(minimal_fields);
+		let minimal_request_json = JSON.parse(minimal_request_string);
+	    
+	    expect(minimal_request_string).to.be.an("string");
 	    expect(minimal_request_json).to.be.an("object");
-	    expect(request_json.needed).to.equal('2019-08-31T00:00:00.000+0000');
-	    expect(request_json.item.title).to.equal('Simon\'s Cat');
-	    expect(request_json.item.oclcNumber).to.equal(780941515);
-	    expect(request_json.requester.institution.institutionId).to.equal(128807); 
-	    expect(request_json.requester.supplierInfo.institutions).to.be.an("array");
-	    expect(request_json.requester.supplierInfo.institutions[0].institutionId).to.equal(148456);	  
+	    expect(minimal_request_json.illRequest.needed).to.equal('2019-08-31T00:00:00.000+0000');
+	    expect(minimal_request_json.illRequest.item.title).to.equal('Simon\'s Cat');
+	    expect(minimal_request_json.illRequest.item.oclcNumber).to.equal(780941515);
+	    expect(minimal_request_json.illRequest.requester.institution.institutionId).to.equal(128807); 
+	    expect(minimal_request_json.illRequest.requester.supplierInfo.institutions).to.be.an("array");
+	    expect(minimal_request_json.illRequest.requester.supplierInfo.institutions[0].institutionId).to.equal(148456);	  
 	});	  
 	  
 });
@@ -127,7 +135,7 @@ describe('Add ILL Request tests', () => {
   });
 
   it('Post ILL Request by Access Token', () => {
-      moxios.stubOnce('POST', 'https://128807.share.worldcat.org/ILL/request/data', {
+      moxios.stubOnce('POST', 'https://worldcat.org/ill/request/data', {
           status: 200,
           responseText: ill_request_response
         });  
@@ -190,7 +198,7 @@ describe('Get ILL Request tests', () => {
   });  
   
   it('Get ILL Request by Access Token', () => {
-      moxios.stubOnce('GET', 'https://128807.share.worldcat.org/ILL/request/data/167513532', {
+      moxios.stubOnce('GET', 'https://worldcat.org/ill/request/data/167513532', {
           status: 200,
           responseText: ill_request_response
         });  

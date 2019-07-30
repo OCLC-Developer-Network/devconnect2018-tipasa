@@ -12,6 +12,10 @@ const options = {
 	    redirectUri: "http://localhost:8000/"
 	};
 
+if (typeof API_URL_OVERRIDE !== "undefined") {
+	ILLRequest.serviceUrl = API_URL_OVERRIDE;
+}
+
 const wskey = new nodeauth.Wskey(config['wskey'], config['secret'], options);
 
 const app = express();
@@ -67,8 +71,8 @@ app.post('/request', (req, res) => {
         	"user_email": req.body.user_email,
         "department": req.body.department,
         "patron_type": req.body.patron_type,
-        "pickupRegistryId": req.body.patron_type,
-        "pickupName": req.body.patron_type,
+        "pickupRegistryId": req.body.pickupRegistryId,
+        "pickupName": req.body.pickupName,
         "requester": req.body.requester,
         "suppliers": req.body.suppliers,
         	"ItemOCLCNumber": req.body.ItemOCLCNumber,
@@ -80,7 +84,7 @@ app.post('/request', (req, res) => {
 			res.render('display-request', {request: ill_request});
 		})
 		.catch (error => {
-			res.render('display-error', {error: error.getCode(), error_message: error.getMessage(), error_detail: error.getDetail()});
+			res.render('display-error', {error: error.getCode(), error_message: error.getMessage(), failure_code: error.getFailureCode(), debug_message: error.getDebugMessage(), request_data: error.getRequestData()});
 		})
 });
 

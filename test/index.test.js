@@ -6,11 +6,11 @@ let helper = require('./testHelper');
 describe("routes", function(){
 	before(() => {
 		helper.moxios.install()
-		helper.moxios.stubOnce('POST', 'https://128807.share.worldcat.org/ILL/request/data', {
+		helper.moxios.stubOnce('POST', 'https://worldcat.org/ill/request/data', {
 			status: 200,
 			responseText: helper.ill_request_response
 		}); 
-		helper.moxios.stubOnce('GET', 'https://128807.share.worldcat.org/ILL/request/data/167513532', {
+		helper.moxios.stubOnce('GET', 'https://worldcat.org/ill/request/data/167513532', {
 			status: 200,
 			responseText: helper.ill_request_response
 		}); 
