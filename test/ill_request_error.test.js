@@ -62,7 +62,7 @@ describe('Create Error from Access Token Error test', () => {
 	});
 
 
-describe.skip('API Error tests', () => {
+describe('API Error tests', () => {
   beforeEach(() => {
 	  moxios.install();
   });
@@ -99,7 +99,7 @@ describe.skip('API Error tests', () => {
         expect(error).to.be.an.instanceof(ILLRequestError);
         expect(error.getRequestError()).to.be.an.instanceof(Error);
         expect(error.getCode()).to.equal(401);
-        expect(error.getMessage()).to.equal('Authentication failure. Missing or invalid authorization token.')
+        expect(error.getMessage()).to.equal('No valid authentication credentials found in request')
         
       });
   }); 
@@ -124,7 +124,7 @@ describe.skip('API Error tests', () => {
         expect(atError.getRequestError()).to.be.an.instanceof(Error);
         expect(atError.getCode()).to.equal(401);
         expect(atError.getMessage()).to.equal("WSKey 'test' is invalid")
-        expect(atError.getDetail()).to.equal('Authorization header: http://www.worldcat.org/wskey/v2/hmac/v1 clientId="test", timestamp="1524513365", nonce="a2b79385", signature="yS+aKqSbJ2PjL9S5AuA5zqo+t2QfWLl8W9wWbACnFMk=", principalID="id", principalIDNS="namespace"')
+        expect(atError.getDetails()).to.equal('Authorization header: http://www.worldcat.org/wskey/v2/hmac/v1 clientId="test", timestamp="1524513365", nonce="a2b79385", signature="yS+aKqSbJ2PjL9S5AuA5zqo+t2QfWLl8W9wWbACnFMk=", principalID="id", principalIDNS="namespace"')
         
       });
   });   

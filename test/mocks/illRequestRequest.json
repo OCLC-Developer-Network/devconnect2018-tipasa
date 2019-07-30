@@ -1,0 +1,33 @@
+{
+    "illRequest": {
+    "item":{
+        "title":"Simon's Cat",
+        "oclcNumber": "780941515",
+        "verification": "OCLC"
+    },
+    "needed":"2019-08-30T20:00:00.000-04:00",
+    "requestStatus":"SUBMITTING",
+            "requester": {
+                "institution": {
+                    "institutionId": 128807
+                },
+            "requesterBilling": {
+                "address": {
+                    "address1": "main street"
+                }
+            },
+            "requesterDelivery": {
+                "address": {
+                    "address1": "main street"
+                }
+            },                
+                "serviceType": "COPY",
+                "supplierInfo": {
+                    "institutions": [
+                        {"institutionId": 148456},
+                        {"institutionId": 116402}
+                    ]
+                }
+            }
+     }
+}
