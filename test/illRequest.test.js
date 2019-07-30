@@ -96,6 +96,24 @@ describe('ILL Request Build JSON tests', () => {
 	      expect(request_json.requester.supplierInfo.institutions).to.be.an("array");
 	      expect(request_json.requester.supplierInfo.institutions[0].institutionId).to.equal(148456);	  
 	});
+	
+	it('Has handles missing/minimal values', () => {
+		let minimal_fields = {
+	    		"needed": "2019-08-31T00:00:00.000+0000",
+	    		"requester": 128807,
+	    		"suppliers" : "148456, 116402",
+	    		"ItemOCLCNumber": 780941515,
+	    		"ItemTitle": "Simon's Cat"
+	    };
+	    let minimal_request_json = ILLRequest.buildJSON(minimal_fields);
+	    expect(minimal_request_json).to.be.an("object");
+	    expect(request_json.needed).to.equal('2019-08-31T00:00:00.000+0000');
+	    expect(request_json.item.title).to.equal('Simon\'s Cat');
+	    expect(request_json.item.oclcNumber).to.equal(780941515);
+	    expect(request_json.requester.institution.institutionId).to.equal(128807); 
+	    expect(request_json.requester.supplierInfo.institutions).to.be.an("array");
+	    expect(request_json.requester.supplierInfo.institutions[0].institutionId).to.equal(148456);	  
+	});	  
 	  
 });
 

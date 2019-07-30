@@ -122,7 +122,65 @@ module.exports = class ILLRequest {
     		let suppliers = supplier_list.map(function(supplier){ 
     			return {"institutionId": Number(supplier)};
     		});
-
+    		
+    		let deliveryOptions = [];
+    		if (fields['deliveryOptionType']){
+    				deliveryOptions.push({
+                    "deliveryType": fields['deliveryOptionType'],
+                    "deliveryDetail": fields['deliveryOptionDetail']
+                });
+    		}
+    		
+    		let requester = {
+    				"institution":{
+    					"institutionId": fields['requester']
+    				},
+    	            "supplierInfo": {
+    	                "institutions": suppliers
+    	            }    	                	            
+    			}
+    		if (deliveryOptions) {
+    			requester["requesterDelivery"] = {
+                    "deliveryOptions": deliveryOptions,
+                    "address": {"address1": fields['deliveryOptionAddress']}
+                   }
+    		}
+    		if (fields['billingAddress']) {
+          requester["requesterBilling"] = {
+                   "billingTypes": [],
+                   "address": {"address1": fields['billingAddress']}
+                }
+    		}
+    		
+    		let patron = {};
+    		
+    		if (fields['userId']){	    		
+	    		patron["userId"] = fields['userId'];	                
+    		}
+    		
+    		if (fields['pickupRegistryId'] && fields['pickupName']){
+    			patron["pickupLocationInfo"] = {
+                    "registryId": fields['pickupRegistryId'],
+                    "name": fields['pickupName']
+                }
+    		}
+    		
+    		if (fields['user_name']) {
+			patron["name"] = fields['user_name'];
+    		}
+    		
+    		if (fields['department']) {
+    			patron["department"] = fields['department'];
+    		}
+    		
+    		if (fields['patron_type']){
+    			patron["patronType"] = fields['patron_type'];
+    		}
+    		
+    		if (fields['user_email']){
+			patron["email"] = fields['user_email'];
+    		}
+    		
     		let data = {
     			"needed": fields['needed'],
     			"item":{
@@ -130,37 +188,10 @@ module.exports = class ILLRequest {
     			    "verification": "OCLC",
     			    "oclcNumber": fields['ItemOCLCNumber']
     			},
-    			"requester":{
-    				"institution":{
-    					"institutionId": fields['requester']
-    				},
-    	            "supplierInfo": {
-    	                "institutions": suppliers
-    	            },
-    	            "requesterDelivery": {
-                     "deliveryOptions": [{
-                            "deliveryType": fields['deliveryOptionType'],
-                            "deliveryDetail": fields['deliveryOptionType']
-                        }],
-                     "address": {"address1": fields['deliveryOptionAddress']}
-                    },
-                 "requesterBilling": {
-                    "billingTypes": [],
-                    "address": {"address1": fields['billingAddress']}
-                 }    	            
-    			},
-    			"patron": {
-    				"userId": fields['userId'],
-    				"name": fields['user_name'],
-                "department": fields['department'],
-                "patronType": fields['patron_type'],
-    				"email": fields['user_email'],
-                "pickupLocationInfo": {
-                    "registryId": fields['pickupRegistryId'],
-                    "name": fields['pickupName']
-                }
+    			"requester": requester,
+    			"patron": patron
     			}
-    			}
-    	return data;
+    		
+    		return data;
     }
 };
