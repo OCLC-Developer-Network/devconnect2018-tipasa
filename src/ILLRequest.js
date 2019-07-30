@@ -135,15 +135,19 @@ module.exports = class ILLRequest {
     				"institution":{
     					"institutionId": Number(fields['requester'])
     				},
+    				"serviceType": "COPY",
     	            "supplierInfo": {
     	                "institutions": suppliers
     	            }    	                	            
     			}
-    		if (Array.isArray(deliveryOptions) && deliveryOptions.length > 0) {
-    			requester["requesterDelivery"] = {
-                    "deliveryOptions": deliveryOptions,
-                    "address": {"address1": fields['deliveryOptionAddress']}
-                   }
+    		if ((Array.isArray(deliveryOptions) && deliveryOptions.length > 0) || fields['deliveryOptionAddress']) {
+    			requester["requesterDelivery"] = {};
+    			if (Array.isArray(deliveryOptions) && deliveryOptions.length > 0){
+    				requester["requesterDelivery"]["deliveryOptions"] = deliveryOptions
+    			}
+    			if (fields['deliveryOptionAddress']){
+    				requester["requesterDelivery"]["address"] = {"address1": fields['deliveryOptionAddress']}
+    			}
     		}
     		if (fields['billingAddress']) {
           requester["requesterBilling"] = {
@@ -152,8 +156,8 @@ module.exports = class ILLRequest {
                 }
     		}
     		
-    		let patron = {};
-    		
+    		let patron = {};    		
+    		patron['ppid'] = fields['ppid'];
     		if (fields['userId']){	    		
 	    		patron["userId"] = fields['userId'];	                
     		}

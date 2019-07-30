@@ -66,14 +66,17 @@ app.get('/', (req, res) => {
 app.post('/request', (req, res) => {
     let fields = {
         	"needed": req.body.needed,
-        	"userID": req.body.userID,
+        	"userId": req.body.userId,
         	"user_name": req.body.user_name,
         	"user_email": req.body.user_email,
         "department": req.body.department,
         "patron_type": req.body.patron_type,
+        "ppid": "junk",
         "pickupRegistryId": req.body.pickupRegistryId,
         "pickupName": req.body.pickupName,
         "requester": req.body.requester,
+        "deliveryOptionAddress": req.body.requester_delivery_address,
+        "billingAddress": req.body.requester_billing_address,
         "suppliers": req.body.suppliers,
         	"ItemOCLCNumber": req.body.ItemOCLCNumber,
         	"ItemTitle": req.body.ItemTitle

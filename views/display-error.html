@@ -5,8 +5,16 @@
     <% if (error_message) { %>
     <p id="message">Message - <%=error_message%></p>
     <% }; %>
-    <% if (error_detail) { %>
-    <p id="detail"><%=error_detail%></p>
+    <% if (failure_code) { %>
+    <p id="failure_code"><%=failure_code%></p>
     <% }; %>
+    <% if (debug_message) { %>
+    <p id="debug_message"><%=debug_message%></p>
+    <% }; %>
+    </div>
+    <div id="request_data">
+    <pre>
+    <%=request_data%>
+    </pre>
     </div>
 <%- include('footer.html') -%>
