@@ -9,7 +9,7 @@ const ILLRequestError = require("./ILLRequestError.js")
 
 const options = {
 	    services: ["ILL:request", "SCIM", "refresh_token"],
-	    redirectUri: "http://localhost:8000/request"
+	    redirectUri: "http://localhost:8000/"
 	};
 
 const wskey = new nodeauth.Wskey(config['wskey'], config['secret'], options);

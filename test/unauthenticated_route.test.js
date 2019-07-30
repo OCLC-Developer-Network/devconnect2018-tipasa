@@ -13,17 +13,17 @@ describe("Unauthenticated routes", function(){
 	  it('It should response the GET method', async() => {
 	    	let response = await request(app).get("/");
             expect(response.statusCode).to.equal(302);
-            expect(response.headers['location']).to.equal("https://authn.sd00.worldcat.org/oauth2/authorizeCode?client_id=test&authenticatingInstitutionId=128807&contextInstitutionId=128807&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Frequest&response_type=code&scope=ILL%3Arequest%20SCIM%20refresh_token&state=%2F");
+            expect(response.headers['location']).to.equal("https://authn.sd00.worldcat.org/oauth2/authorizeCode?client_id=test&authenticatingInstitutionId=128807&contextInstitutionId=128807&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2F&response_type=code&scope=ILL%3Arequest%20SCIM%20refresh_token&state=%2F");
 	    });
   });	
 	
   describe("#accessTokenError", function(){	  
 	  helper.nock('https://authn.sd00.worldcat.org/oauth2')
-      .post('/accessToken?grant_type=code&code=auth_12345&authenticatingInstitutionId=128807&contextInstitutionId=128807&redirect_uri=http://localhost:8000/request')
+      .post('/accessToken?grant_type=authorization_code&code=auth_12345&authenticatingInstitutionId=128807&contextInstitutionId=128807&redirect_uri=http://localhost:8000/')
       .replyWithFile(401, __dirname + '/mocks/access_token_error.json', { 'Content-Type': 'application/json' });
 	  
 	  it('It should response the GET method', async() => {
-	    	let response = await request(app).get("/myaccount?code=auth_12345&state=%2Fmyaccount");
+	    	let response = await request(app).get("?code=auth_12345");
 	    	let $ = cheerio.load(response.text);
             expect(response.statusCode).to.equal(200);
             expect($('div#content h1').text()).to.have.string("System Error");
