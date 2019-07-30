@@ -17,7 +17,7 @@ describe("Unauthenticated routes", function(){
 	    });
   });	
 	
-  describe.skip("#accessTokenError", function(){	  
+  describe("#accessTokenError", function(){	  
 	  helper.nock('https://authn.sd00.worldcat.org/oauth2')
       .post('/accessToken?grant_type=authorization_code&code=auth_12345&authenticatingInstitutionId=128807&contextInstitutionId=128807&redirect_uri=http://localhost:8000/')
       .replyWithFile(401, __dirname + '/mocks/access_token_error.json', { 'Content-Type': 'application/json' });
@@ -33,7 +33,7 @@ describe("Unauthenticated routes", function(){
 	    });
   });
   
-  describe.skip("#Login Error", function(){
+  describe("#Login Error", function(){
 	    it('It should response the GET method', async() => {
 	        let response = await request(helper.app).get("/?error=invalid_client_id&error_description=WSKey+is+invalid&http_code=401&state=%2Fmyaccount");
 	        let $ = cheerio.load(response.text);

@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 const cheerio = require('cheerio');
 let helper = require('./testHelper');
 
-describe.skip("Error routes", function(){
+describe("Error routes", function(){
 	before(() => {
 		helper.moxios.install()
 	})
@@ -37,7 +37,7 @@ describe.skip("Error routes", function(){
             expect(response.statusCode).to.equal(200);
             expect($('div#content h1').text()).to.have.string("System Error");
 			expect($('div#error_content > p#status').text()).to.have.string("Status - 401");
-            expect($('div#error_content > p#message').text()).to.have.string("Message - Authentication failure. Missing or invalid authorization token.");
+            expect($('div#error_content > p#message').text()).to.have.string("Message - No valid authentication credentials found in request");
 	    });
   });	
  

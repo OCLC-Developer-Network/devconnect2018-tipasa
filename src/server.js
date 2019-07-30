@@ -29,7 +29,7 @@ app.use(express.static('public'));
 
 function getAccessToken (req, res, next){
 	if (req.query['error']){
-		res.render('display-error', {error: req.query['error'], error_message: req.query['error_description'], error_detail: ""});
+		res.render('display-error', {error: req.query['error'], error_message: req.query['error_description'], detail: ""});
 	} else if (app.get('accessToken') && app.get('accessToken').getAccessTokenString() && !app.get('accessToken').isExpired()){
 		next()
 	} else if (app.get('accessToken') && !app.get('accessToken').refreshToken.isExpired()) {	
@@ -47,7 +47,7 @@ function getAccessToken (req, res, next){
 	        .catch(function (err) {
 	            //catch the error
 	        	let error = new ILLRequestError(err);
-	        	res.render('display-error', {error: error.getCode(), error_message: error.getMessage(), error_detail: error.getDetail()});
+	        	res.render('display-error', {error: error.getCode(), error_message: error.getMessage(), detail: error.getDetails()});
 	        })
 	}else {	
 		// redirect to login + state parameter
@@ -87,7 +87,7 @@ app.post('/request', (req, res) => {
 			res.render('display-request', {request: ill_request});
 		})
 		.catch (error => {
-			res.render('display-error', {error: error.getCode(), error_message: error.getMessage(), failure_code: error.getFailureCode(), debug_message: error.getDebugMessage(), request_data: error.getRequestData()});
+			res.render('display-error', {error: error.getCode(), error_message: error.getMessage(), detail: error.getDetails(), failure_code: error.getFailureCode(), debug_message: error.getDebugMessage()});
 		})
 });
 
@@ -99,7 +99,7 @@ app.post('/request', (req, res) => {
 			res.render('display-request', {request: ill_request});
 		})
 		.catch (error => {
-			res.render('display-error', {error: error.getCode(), error_message: error.getMessage(), error_detail: error.getDetail()});
+			res.render('display-error', {error: error.getCode(), error_message: error.getMessage(), detail: error.getDetail()});
 		})
 });*/
 

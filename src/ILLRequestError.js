@@ -48,23 +48,37 @@ module.exports = class ILLRequestError {
 	}
 	
 	getMessage(){
-		return this.doc.response.error.message;
+		let message = "";
+		if (typeof this.doc.response !== 'undefined') {
+			message = this.doc.response.error.message;
+		} else {
+			message = this.doc.message;
+		}
+		return message;
 	}
 	
 	getDetails(){
-		return this.doc.response.error.detail;
+		let detail = ""
+		if (typeof this.doc.response !== 'undefined') {
+			detail = this.doc.response.error.detail;
+		} else if (typeof this.doc.detail !== 'undefined') {
+			detail = this.doc.detail;
+		} else {
+			detail = this.doc.details;
+		}
+		return detail;
 	}
 	
 	getFailureCode(){
-		return this.doc.response.error.detail[0].failureCode;
+		if (typeof this.doc.response !== 'undefined' && typeof this.doc.response.error.detail == 'array') {
+			return this.doc.response.error.detail[0].failureCode;
+		}
 	}
 	
 	getDebugMessage(){
-		return this.doc.response.error.detail[0].debugMessage;
-	}
-	
-	getRequestData(){
-		return this.requestData;
+		if (typeof this.doc.response !== 'undefined' && typeof this.doc.response.error.detail == 'array') {
+			return this.doc.response.error.detail[0].debugMessage;
+		}
 	}
 
 };

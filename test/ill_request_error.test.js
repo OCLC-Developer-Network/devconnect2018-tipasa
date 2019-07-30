@@ -14,7 +14,7 @@ const ILLRequest = require('../src/ILLRequest');
 const error_mock = require('./mocks/errorMock')
 const accesstoken_error_mock = require('./mocks/accessTokenErrorMock')
 
-describe.skip('Create Error test', () => {
+describe('Create Error test', () => {
 	var error;
 	  before(() => {
 		  	error = new ILLRequestError(error_mock);
@@ -26,21 +26,18 @@ describe.skip('Create Error test', () => {
 	  
 	  it('Sets the Error properties', () => {
         expect(error.error).to.be.an.instanceof(Error);
-        expect(error.code).to.equal(401)
-        expect(error.message).to.equal('WSKey \'test\' is invalid');
-        expect(error.detail).to.equal('Authorization header: http://www.worldcat.org/wskey/v2/hmac/v1 clientId=\"test\", timestamp=\"1525205192\", nonce=\"2f33d4fb3c483f99\", signature=\"k7svWPSwMA1qTmwnePoRIlpvcCQNUf8S5/FWTjVbT38=\", principalID=\"8eaggf92-3951-431c-975a-d7rf26b8d131\", principalIDNS=\"urn:oclc:wms:da\"')
+        expect(error.code).to.equal(401)        
 	  });
 	  
 	  it('Has functioning getters', () => {
         expect(error.getRequestError()).to.be.an.instanceof(Error);
         expect(error.getCode()).to.equal(401)
-        expect(error.getMessage()).to.equal('WSKey \'test\' is invalid');
-        expect(error.getDetail()).to.equal('Authorization header: http://www.worldcat.org/wskey/v2/hmac/v1 clientId=\"test\", timestamp=\"1525205192\", nonce=\"2f33d4fb3c483f99\", signature=\"k7svWPSwMA1qTmwnePoRIlpvcCQNUf8S5/FWTjVbT38=\", principalID=\"8eaggf92-3951-431c-975a-d7rf26b8d131\", principalIDNS=\"urn:oclc:wms:da\"')
+        expect(error.getMessage()).to.equal('No valid authentication credentials found in request');
 	  });
 	  
 	});
 
-describe.skip('Create Error from Access Token Error test', () => {
+describe('Create Error from Access Token Error test', () => {
 	var error;
 	  before(() => {
 		  	error = new ILLRequestError(accesstoken_error_mock);
@@ -53,15 +50,13 @@ describe.skip('Create Error from Access Token Error test', () => {
 	  it('Sets the Error properties', () => {
         expect(error.error).to.be.an.instanceof(Error);
         expect(error.code).to.equal(401)
-        expect(error.message).to.equal('WSKey \'test\' is invalid')
-        expect(error.detail).to.equal('Authorization header: http://www.worldcat.org/wskey/v2/hmac/v1 clientId="test", timestamp="1524513365", nonce="a2b79385", signature="yS+aKqSbJ2PjL9S5AuA5zqo+t2QfWLl8W9wWbACnFMk=", principalID="id", principalIDNS="namespace"')
 	  });
 	  
 	  it('Has functioning getters', () => {
         expect(error.getRequestError()).to.be.an.instanceof(Error);
         expect(error.getCode()).to.equal(401)
         expect(error.getMessage()).to.equal("WSKey 'test' is invalid")
-        expect(error.getDetail()).to.equal('Authorization header: http://www.worldcat.org/wskey/v2/hmac/v1 clientId="test", timestamp="1524513365", nonce="a2b79385", signature="yS+aKqSbJ2PjL9S5AuA5zqo+t2QfWLl8W9wWbACnFMk=", principalID="id", principalIDNS="namespace"')
+        expect(error.getDetails()).to.equal('Authorization header: http://www.worldcat.org/wskey/v2/hmac/v1 clientId="test", timestamp="1524513365", nonce="a2b79385", signature="yS+aKqSbJ2PjL9S5AuA5zqo+t2QfWLl8W9wWbACnFMk=", principalID="id", principalIDNS="namespace"')
 	  });
 	  
 	});
