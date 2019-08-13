@@ -1,0 +1,35 @@
+    /** A key to indicate the data is missing (i.e. null or empty) */
+    MISSING(30000, "Missing", "missing", FailureTypeEnum.BUSINESS_VALIDATION),
+
+    /** A key to indicate the field contains invalid data. */
+    INVALID(30001, "Invalid", "invalid", FailureTypeEnum.BUSINESS_VALIDATION),
+
+    /** A key to indicate the field contains data which is out of bounds */
+    OUT_OF_BOUNDS(30002, "OutOfBounds", "outofbounds", FailureTypeEnum.BUSINESS_VALIDATION),
+
+    /** Failure Type - Invalid Symbol */
+    INVALID_SYMBOL(30004, "InvalidInstitutionSymbol", "1291", FailureTypeEnum.BUSINESS_VALIDATION),
+
+    /** Failure Type - Lender Not a Supplier */
+    NOT_A_SUPPLIER(30005, "LenderNotSupplier", "1254", FailureTypeEnum.BUSINESS_VALIDATION),
+
+    /** Failure Type - Invalid Data Exception */
+    INVALID_DATA_EXCEPTION(30007, "InvalidDataException", "", FailureTypeEnum.BUSINESS_GENERAL),
+
+    /** cannot read the input request */
+    CANNOT_READ_INPUT_EXCEPTION(140001, "CannotReadInputException", FailureTypeEnum.BUSINESS_GENERAL),
+
+    /** cannot write the output response */
+    CANNOT_WRITE_OUTPUT_EXCEPTION(140002, "CannotWriteOutputException", FailureTypeEnum.BUSINESS_GENERAL),
+
+    /** cannot write the output response */
+    UNSUPPORTED_SERVICE_CALL_PARAMETERS_EXCEPTION(140003, "UnsupportedServiceCallParametersException", FailureTypeEnum.BUSINESS_VALIDATION),
+
+    /** Failed to convert the data     */
+    DATA_CONVERSION_EXCEPTION(140004, "DataConversionException", FailureTypeEnum.BUSINESS_VALIDATION),
+
+    /** Not authorized to perform the action */
+    UNAUTHORIZED_EXCEPTION(140005, "UnauthorizedException", FailureTypeEnum.BUSINESS_VALIDATION),
+
+    /** an exception caught by the unhandled resolver */
+    UNHANDLED_EXCEPTION(140006, "UnhandledException", FailureTypeEnum.RUNTIME);

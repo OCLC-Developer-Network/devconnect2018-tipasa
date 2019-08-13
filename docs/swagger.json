@@ -1,0 +1,419 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "0.1",
+    "title" : "WorldShare ILL Request Creation"
+  },
+  "host" : "localhost:8080",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/request/data" : {
+      "post" : {
+        "summary" : "Handles single-request creation",
+        "description" : "",
+        "operationId" : "createSingleRequest",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Request Envelope for a single IllRequest",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/IllRequestSingleRequestEnvelope"
+          }
+        }, {
+          "name" : "",
+          "in" : "query",
+          "description" : "Request Parameters",
+          "required" : true,
+          "type" : "object"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "HTTP Method",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/ResponseEntity"
+            }
+          },
+          "400" : {
+            "description" : "Bad request sent"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Address" : {
+      "type" : "object",
+      "properties" : {
+        "attention" : {
+          "type" : "string"
+        },
+        "address1" : {
+          "type" : "string"
+        },
+        "address2" : {
+          "type" : "string"
+        },
+        "locality" : {
+          "type" : "string"
+        },
+        "region" : {
+          "type" : "string"
+        },
+        "country" : {
+          "type" : "string"
+        },
+        "postal" : {
+          "type" : "string"
+        }
+      }
+    },
+    "CopyrightUse" : {
+      "type" : "object",
+      "properties" : {
+        "copyrightId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "licensorReferenceId" : {
+          "type" : "string"
+        },
+        "copyrightPermissionType" : {
+          "type" : "string"
+        },
+        "fee" : {
+          "$ref" : "#/definitions/Money"
+        },
+        "pageCount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "committedDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "copyrightPermissionNote" : {
+          "type" : "string"
+        },
+        "copyrightUseId" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "DeliveryOption" : {
+      "type" : "object",
+      "properties" : {
+        "deliveryType" : {
+          "type" : "string"
+        },
+        "deliveryDetail" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Edition" : {
+      "type" : "object",
+      "properties" : {
+        "editionType" : {
+          "type" : "string"
+        },
+        "editionSpecific" : {
+          "type" : "string"
+        }
+      }
+    },
+    "IllRequest" : {
+      "type" : "object",
+      "properties" : {
+        "requestId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "edited" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "requestStatus" : {
+          "type" : "string"
+        },
+        "needed" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "referenceId" : {
+          "type" : "string"
+        },
+        "requester" : {
+          "$ref" : "#/definitions/Requester"
+        },
+        "item" : {
+          "$ref" : "#/definitions/Item"
+        },
+        "patron" : {
+          "$ref" : "#/definitions/Patron"
+        }
+      }
+    },
+    "IllRequestSingleRequestEnvelope" : {
+      "type" : "object",
+      "properties" : {
+        "illRequest" : {
+          "$ref" : "#/definitions/IllRequest"
+        }
+      }
+    },
+    "Institution" : {
+      "type" : "object",
+      "properties" : {
+        "institutionId" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Item" : {
+      "type" : "object",
+      "properties" : {
+        "title" : {
+          "type" : "string"
+        },
+        "uniformTitle" : {
+          "type" : "string"
+        },
+        "articleTitle" : {
+          "type" : "string"
+        },
+        "author" : {
+          "type" : "string"
+        },
+        "articleAuthor" : {
+          "type" : "string"
+        },
+        "mediaType" : {
+          "type" : "string"
+        },
+        "oclcNumber" : {
+          "type" : "integer"
+        },
+        "isbn" : {
+          "type" : "string"
+        },
+        "issn" : {
+          "type" : "string"
+        },
+        "edition" : {
+          "$ref" : "#/definitions/Edition"
+        },
+        "language" : {
+          "type" : "string"
+        },
+        "publisherName" : {
+          "type" : "string"
+        },
+        "publicationDate" : {
+          "type" : "string"
+        },
+        "publicationPlace" : {
+          "type" : "string"
+        },
+        "issueVolume" : {
+          "type" : "string"
+        },
+        "issueDate" : {
+          "type" : "string"
+        },
+        "pages" : {
+          "type" : "string"
+        },
+        "verification" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Location" : {
+      "type" : "object",
+      "properties" : {
+        "registryId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Money" : {
+      "type" : "object",
+      "properties" : {
+        "currency" : {
+          "type" : "string"
+        },
+        "amount" : {
+          "type" : "number"
+        }
+      }
+    },
+    "Patron" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "ppid" : {
+          "type" : "string"
+        },
+        "patronApproved" : {
+          "type" : "boolean"
+        },
+        "patronBlocked" : {
+          "type" : "boolean"
+        },
+        "userId" : {
+          "type" : "string"
+        },
+        "patronType" : {
+          "type" : "string"
+        },
+        "department" : {
+          "type" : "string"
+        },
+        "phone" : {
+          "type" : "string"
+        },
+        "fax" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "address" : {
+          "$ref" : "#/definitions/Address"
+        },
+        "pickupLocationInfo" : {
+          "$ref" : "#/definitions/Location"
+        },
+        "maximumCost" : {
+          "$ref" : "#/definitions/Money"
+        }
+      }
+    },
+    "Requester" : {
+      "type" : "object",
+      "properties" : {
+        "institution" : {
+          "$ref" : "#/definitions/Institution"
+        },
+        "fulfillmentType" : {
+          "type" : "string"
+        },
+        "serviceType" : {
+          "type" : "string"
+        },
+        "supplierInfo" : {
+          "$ref" : "#/definitions/SupplierInfo"
+        },
+        "requesterDelivery" : {
+          "$ref" : "#/definitions/RequesterDelivery"
+        },
+        "requesterBilling" : {
+          "$ref" : "#/definitions/RequesterBilling"
+        },
+        "copyrightType" : {
+          "type" : "string"
+        },
+        "copyrightUse" : {
+          "$ref" : "#/definitions/CopyrightUse"
+        }
+      }
+    },
+    "RequesterBilling" : {
+      "type" : "object",
+      "properties" : {
+        "billingTypes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "address" : {
+          "$ref" : "#/definitions/Address"
+        },
+        "maximumCost" : {
+          "$ref" : "#/definitions/Money"
+        }
+      }
+    },
+    "RequesterDelivery" : {
+      "type" : "object",
+      "properties" : {
+        "deliveryOptions" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/DeliveryOption"
+          }
+        },
+        "address" : {
+          "$ref" : "#/definitions/Address"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "fax" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ResponseEntity" : {
+      "type" : "object",
+      "properties" : {
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "body" : {
+          "type" : "object"
+        },
+        "statusCode" : {
+          "type" : "string",
+          "enum" : [ "CONTINUE", "SWITCHING_PROTOCOLS", "PROCESSING", "CHECKPOINT", "OK", "CREATED", "ACCEPTED", "NON_AUTHORITATIVE_INFORMATION", "NO_CONTENT", "RESET_CONTENT", "PARTIAL_CONTENT", "MULTI_STATUS", "ALREADY_REPORTED", "IM_USED", "MULTIPLE_CHOICES", "MOVED_PERMANENTLY", "FOUND", "MOVED_TEMPORARILY", "SEE_OTHER", "NOT_MODIFIED", "USE_PROXY", "TEMPORARY_REDIRECT", "PERMANENT_REDIRECT", "BAD_REQUEST", "UNAUTHORIZED", "PAYMENT_REQUIRED", "FORBIDDEN", "NOT_FOUND", "METHOD_NOT_ALLOWED", "NOT_ACCEPTABLE", "PROXY_AUTHENTICATION_REQUIRED", "REQUEST_TIMEOUT", "CONFLICT", "GONE", "LENGTH_REQUIRED", "PRECONDITION_FAILED", "PAYLOAD_TOO_LARGE", "REQUEST_ENTITY_TOO_LARGE", "URI_TOO_LONG", "REQUEST_URI_TOO_LONG", "UNSUPPORTED_MEDIA_TYPE", "REQUESTED_RANGE_NOT_SATISFIABLE", "EXPECTATION_FAILED", "I_AM_A_TEAPOT", "INSUFFICIENT_SPACE_ON_RESOURCE", "METHOD_FAILURE", "DESTINATION_LOCKED", "UNPROCESSABLE_ENTITY", "LOCKED", "FAILED_DEPENDENCY", "UPGRADE_REQUIRED", "PRECONDITION_REQUIRED", "TOO_MANY_REQUESTS", "REQUEST_HEADER_FIELDS_TOO_LARGE", "UNAVAILABLE_FOR_LEGAL_REASONS", "INTERNAL_SERVER_ERROR", "NOT_IMPLEMENTED", "BAD_GATEWAY", "SERVICE_UNAVAILABLE", "GATEWAY_TIMEOUT", "HTTP_VERSION_NOT_SUPPORTED", "VARIANT_ALSO_NEGOTIATES", "INSUFFICIENT_STORAGE", "LOOP_DETECTED", "BANDWIDTH_LIMIT_EXCEEDED", "NOT_EXTENDED", "NETWORK_AUTHENTICATION_REQUIRED" ]
+        },
+        "statusCodeValue" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "SupplierInfo" : {
+      "type" : "object",
+      "properties" : {
+        "institutions" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Institution"
+          }
+        }
+      }
+    }
+  }
+}

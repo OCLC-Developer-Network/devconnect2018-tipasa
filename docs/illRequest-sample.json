@@ -1,0 +1,33 @@
+{
+    "illRequest": {
+        "item": {
+            "isbn": "978-1556523021",
+            "title": "Outwitting Squirrels",
+            "verification": "OCLC"
+        },
+        "needed": "2019-08-15T00:00:00.000-00:00",
+        "requestStatus": "SUBMITTING",
+        "requester": {
+            "institution": {
+                "institutionId": 128807
+            },
+            "requesterBilling": {
+                "address": {
+                    "address1": "main street"
+                }
+            },
+            "requesterDelivery": {
+                "address": {
+                    "address1": "main street"
+                }
+            },
+            "serviceType": "COPY",
+            "supplierInfo": {
+                "institutions": [
+                    {"institutionId": 148456},
+                    {"institutionId": 116402}
+                ]
+            }
+        }
+    }
+}
